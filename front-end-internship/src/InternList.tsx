@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Intern {
 	id: number;
 	name: string;
-	// ...
+	email: string;
 }
 
 export const InternList: React.FC = () => {
@@ -20,12 +22,25 @@ export const InternList: React.FC = () => {
 	}, []);
 
 	return (
-		<div>
-			{interns.map((intern) => (
-				<div key={intern.id}>
-					{intern.name} <NavLink to={`/interns/${intern.id}`}>Edit</NavLink>
-				</div>
-			))}
+		<div className="internsPage">
+			<div className="heading">
+				<h2>Interns</h2>
+				<NavLink className="addNav" to={`/addintern`}>
+					<button className="addInternBtn">Add Intern</button>
+				</NavLink>
+			</div>
+			<div className="internsList">
+				{interns.map((intern) => (
+					<div className="intern" key={intern.id}>
+						<span className="name">{intern.name}</span>
+						<span className="email">({intern.email})</span>
+						<NavLink className="editNav" to={`/interns/${intern.id}`}>
+							<FontAwesomeIcon className="editIcon" icon={faPenToSquare} />
+							<span>Edit</span>
+						</NavLink>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };

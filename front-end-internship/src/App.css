@@ -83,7 +83,7 @@ input:focus {
 	width: 100%;
 }
 
-.editButton {
+.subButton {
 	margin-top: 0.5rem;
 	margin-bottom: 1rem;
 	font-size: 0.65rem;
@@ -92,6 +92,7 @@ input:focus {
 	height: 1.8rem;
 	color: white;
 	background-color: black;
+	cursor: pointer;
 }
 
 .error {
@@ -100,7 +101,6 @@ input:focus {
 	position: absolute;
 	margin-top: 0.2rem;
 }
-
 
 /* InternList */
 

@@ -1,6 +1,6 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
@@ -14,6 +14,8 @@ export const AddIntern: React.FC<any> = () => {
 	const [email, setEmail] = useState<emailData>();
 	const [startDate, setStartDate] = useState<string>();
 	const [endDate, setEndDate] = useState<string>();
+
+	const [validate, setValidate] = useState<boolean>();
 
 	const addIntern = () => {
 		const internData = {
@@ -29,12 +31,23 @@ export const AddIntern: React.FC<any> = () => {
 			.catch((err: any) => console.log(err));
 	};
 	const checkEmail = (email: string) => {
-		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+		if (
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+				email
+			)
+		) {
 			return true;
 		} else {
 			return false;
 		}
 	};
+
+	useEffect(() => {
+		if (typeof [startDate, endDate]! != "undefined" && endDate && startDate) {
+			if (startDate > endDate) setValidate(false);
+			if (endDate > startDate) setValidate(true);
+		}
+	}, [startDate, endDate]);
 
 	return (
 		<div>
@@ -42,7 +55,16 @@ export const AddIntern: React.FC<any> = () => {
 				<FontAwesomeIcon className="arrowIcon" icon={faArrowLeft} />
 				Back to list
 			</NavLink>
-			<form className="container" onSubmit={addIntern}>
+			<form
+				className="container"
+				onSubmit={(e) => {
+					if (!email?.isValid || !validate) {
+						e.preventDefault();
+						return;
+					}
+					addIntern();
+				}}
+			>
 				<h2>Add Intern</h2>
 				<div className="nameInput">
 					<label>Full Name *</label>
@@ -103,11 +125,13 @@ export const AddIntern: React.FC<any> = () => {
 								setEndDate(e.target.value);
 							}}
 						/>
-						{!endDate && <span className="error">This field is required!</span>}
+						{!validate && (
+							<span className="error">This date is not correct!</span>
+						)}
 					</div>
 				</div>
 				<input
-					className="editButton"
+					className="subButton"
 					type="submit"
 					value="Submit"
 					onChange={(e) => e.preventDefault()}

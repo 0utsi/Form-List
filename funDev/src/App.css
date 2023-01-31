@@ -2,7 +2,6 @@
 .App {
 	display: flex;
 	justify-content: center;
-
 }
 
 .nav {
@@ -18,7 +17,7 @@
 	margin-right: 0.15rem;
 }
 
-.container{
+.intern-form{
 	width: 27rem;
 	height: 21rem;
 	background-color: #F7F7F7;
@@ -108,16 +107,20 @@ input:focus {
 /* InternList */
 
 .internsPage {
+	align-items: center;
 	width: 30rem;
 	height: fit-content;
 	background-color: #F7F7F7;
 	padding: 2.6rem;
+	padding-left: 0;
 	padding-top: 0.5rem;
 	margin-top: 8rem;
 }
 
 .internsList {
 	margin-top: 0.8rem;
+	list-style-type: none;
+	list-style: none;
 }
 
 .intern {
@@ -125,11 +128,10 @@ input:focus {
 	height: 3rem;
 	margin-right: 1rem;
 	background-color: #F2F2F2;
-	text-align: center;
-	vertical-align: middle;
 	line-height: 3rem;
 	font-size: 0.8rem;
 	display: flex;
+	gap: 0.5rem;
 }
 
 .intern:nth-child(odd) {
@@ -159,6 +161,7 @@ input:focus {
 	overflow:hidden;
 	display:inline-block;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .editNav {
@@ -209,8 +212,20 @@ h2{
 
 /* RWD */
 
-@media only screen and (max-width: 768px) {
-    .container {
-        border: 5px solid blue;
-    }
+@media screen and (max-width: 608px) {
+
+	.container {
+		width: 20rem
+	}
+
+   .internsPage {
+		width: 22rem;
+   }
+
+   .subButton {
+	width: 5rem;
+	height: 1rem;
+	font-size: 0.45rem;
+   }
+
 }

@@ -29,18 +29,18 @@ export const InternList: React.FC = () => {
 					<button className="addInternBtn">Add Intern</button>
 				</NavLink>
 			</div>
-			<div className="internsList">
+			<ul className="internsList">
 				{interns.map((intern) => (
-					<div className="intern" key={intern.id}>
+					<li className="intern" key={intern.id}>
 						<span className="name">{intern.name}</span>
 						<span className="email">({intern.email})</span>
 						<NavLink className="editNav" to={`/interns/${intern.id}`}>
 							<FontAwesomeIcon className="editIcon" icon={faPenToSquare} />
 							<span>Edit</span>
 						</NavLink>
-					</div>
+					</li>
 				))}
-			</div>
+			</ul>
 		</div>
 	);
 };

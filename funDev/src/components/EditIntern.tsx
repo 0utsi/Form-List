@@ -84,7 +84,7 @@ export const EditIntern: React.FC = () => {
 				Back to list
 			</NavLink>
 			<form
-				className="container"
+				className="intern-form"
 				onSubmit={(e) => {
 					if (!email?.isValid || !validate) {
 						e.preventDefault();

@@ -60,19 +60,15 @@ export const EditIntern: React.FC = () => {
 	};
 
 	const checkEmail = (email: string) => {
-		if (
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-				email
-			)
-		) {
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
 			return true;
 		}
 		return false;
 	};
 
 	useEffect(() => {
-		if (endDate && startDate && typeof [startDate, endDate]! != "undefined") {
-			if (startDate > endDate) setValidate(false);
+		if (typeof [startDate, endDate]! != "undefined" && endDate && startDate) {
+			if (startDate > endDate) setValidate(true);
 			if (endDate > startDate) setValidate(true);
 		}
 	}, [startDate, endDate]);
@@ -84,16 +80,7 @@ export const EditIntern: React.FC = () => {
 				<FontAwesomeIcon className="arrowIcon" icon={faArrowLeft} />
 				Back to list
 			</NavLink>
-			<form
-				className="container"
-				onSubmit={(e) => {
-					if (!email?.isValid || !validate) {
-						e.preventDefault();
-						return;
-					}
-					editIntern();
-				}}
-			>
+			<form className="container" onSubmit={editIntern}>
 				<h2>Edit Intern</h2>
 				<div className="nameInput">
 					<label>Full Name *</label>
@@ -155,7 +142,7 @@ export const EditIntern: React.FC = () => {
 						)}
 					</div>
 				</div>
-				<input className="subButton" type="submit" value="Submit" />
+				<input className="editButton" type="submit" value="Submit" />
 			</form>
 		</div>
 	);

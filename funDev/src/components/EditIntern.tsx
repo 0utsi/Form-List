@@ -130,7 +130,6 @@ export const EditIntern: React.FC = () => {
 							required
 							className="data"
 							type="date"
-							defaultValue={startDate}
 							value={startDate}
 							onChange={(e) => {
 								setStartDate(e.target.value);
@@ -143,7 +142,6 @@ export const EditIntern: React.FC = () => {
 							required
 							className="data"
 							type="date"
-							defaultValue={endDate}
 							value={endDate}
 							onChange={(e) => {
 								setEndDate(e.target.value);

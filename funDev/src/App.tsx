@@ -1,9 +1,8 @@
-import React from "react";
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { InternList } from "./InternList";
-import { EditIntern } from "./EditIntern";
-import { AddIntern } from "./AddIntern";
+import { InternList } from "./components/InternList";
+import { EditIntern } from "./components/EditIntern";
+import { AddIntern } from "./components/AddIntern";
 
 function App() {
 	return (

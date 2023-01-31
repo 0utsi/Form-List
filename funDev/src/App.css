@@ -27,8 +27,6 @@
 	margin-top: 8rem;
 }
 
-
-
 label {
 	font-size: 0.65rem;
 	margin-bottom: 0.35rem;
@@ -122,9 +120,7 @@ input:focus {
 	margin-top: 0.8rem;
 }
 
-
 .intern {
-	text-align: left;
 	width: 100%;
 	height: 3rem;
 	margin-right: 1rem;
@@ -147,7 +143,8 @@ input:focus {
 .email {
 	color: #555555;
 	left: 1.2rem;
-	/* width: 3rem; */
+	width: 2rem;
+	text-align: left;
 	overflow:hidden;
 	display:inline-block;
 	text-overflow: ellipsis;
@@ -156,8 +153,12 @@ input:focus {
 }
 
 .name {
-	margin-left: 1rem;
+	margin-left: 0.5rem;
 	flex:1;
+	text-align: left;
+	overflow:hidden;
+	display:inline-block;
+	text-overflow: ellipsis;
 }
 
 .editNav {
@@ -165,6 +166,7 @@ input:focus {
 	text-decoration: none;;
 	color: black;
 	flex:1;
+	text-align: right;
 }
 
 .addNav {
@@ -194,7 +196,6 @@ input:focus {
 	align-items: center;
 }
 
-
 h2{
 	font-weight: 400;
 }
@@ -208,3 +209,8 @@ h2{
 
 /* RWD */
 
+@media only screen and (max-width: 768px) {
+    .container {
+        border: 5px solid blue;
+    }
+}

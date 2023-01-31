@@ -43,8 +43,6 @@ export const EditIntern: React.FC = () => {
 		});
 	}, [id]);
 
-	useEffect(() => {}, [name, email, startDate, endDate]);
-
 	const editIntern = () => {
 		const internData = {
 			id: id,

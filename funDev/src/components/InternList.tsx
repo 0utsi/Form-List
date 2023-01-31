@@ -24,7 +24,7 @@ export const InternList: React.FC = () => {
 	return (
 		<div className="internsPage">
 			<div className="heading">
-				<h2>Interns</h2>
+				<h2 className="list-heading">Interns</h2>
 				<NavLink className="addNav" to={`/addintern`}>
 					<button className="addInternBtn">Add Intern</button>
 				</NavLink>

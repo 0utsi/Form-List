@@ -106,13 +106,17 @@ input:focus {
 
 /* InternList */
 
+.list-heading {
+	margin-left: 2.6rem!important;
+}
+
 .internsPage {
 	align-items: center;
 	width: 30rem;
 	height: fit-content;
 	background-color: #F7F7F7;
-	padding: 2.6rem;
-	padding-left: 0;
+	padding-right: 2.6rem;
+	padding-bottom: 2rem;
 	padding-top: 0.5rem;
 	margin-top: 8rem;
 }
@@ -166,7 +170,7 @@ input:focus {
 
 .editNav {
 	margin-right: 0.5rem;
-	text-decoration: none;;
+	text-decoration: none;
 	color: black;
 	flex:1;
 	text-align: right;
@@ -214,17 +218,13 @@ h2{
 
 @media screen and (max-width: 608px) {
 
-	.container {
-		width: 20rem
-	}
-
    .internsPage {
 		width: 22rem;
    }
 
    .subButton {
-	width: 5rem;
-	height: 1rem;
+	width: 5.5rem;
+	height: 1.5rem;
 	font-size: 0.45rem;
    }
 

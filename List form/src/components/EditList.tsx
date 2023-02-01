@@ -1,15 +1,27 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
+
+interface InternResponse {
+	id: number;
+	name: string;
+	email: string;
+	internshipStart: string;
+	internshipEnd: string;
+}
 
 interface emailData {
 	value: string;
 	isValid: boolean;
 }
 
-export const AddIntern: React.FC<any> = () => {
+export const EditList: React.FC = () => {
+	const { id } = useParams();
+
+	const [intern, setIntern] = useState<InternResponse>();
+
 	const [name, setName] = useState<string>();
 	const [email, setEmail] = useState<emailData>();
 	const [startDate, setStartDate] = useState<string>();
@@ -17,19 +29,33 @@ export const AddIntern: React.FC<any> = () => {
 
 	const [validate, setValidate] = useState<boolean>();
 
-	const addIntern = () => {
+	useEffect(() => {
+		axios.get(`http://localhost:3001/interns/${id}`).then((response) => {
+			const intern = response.data;
+			setIntern(intern);
+			setName(intern.name);
+			setEmail({
+				value: intern.email,
+				isValid: true,
+			});
+			setStartDate(intern.internshipStart.slice(0, 10));
+			setEndDate(intern.internshipEnd.slice(0, 10));
+		});
+	}, [id]);
+
+	const editIntern = () => {
 		const internData = {
-			id: Date.now(),
+			id: id,
 			name: name,
 			email: email?.value,
 			internshipStart: startDate,
 			internshipEnd: endDate,
 		};
 		axios
-			.post("http://localhost:3001/interns", internData)
-			.then((res: any) => console.log(res))
-			.catch((err: any) => console.log(err));
+			.put(`http://localhost:3001/interns/${id}`, internData)
+			.then((res: any) => console.log(res));
 	};
+
 	const checkEmail = (email: string) => {
 		if (
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -37,18 +63,18 @@ export const AddIntern: React.FC<any> = () => {
 			)
 		) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	};
 
 	useEffect(() => {
-		if (typeof [startDate, endDate]! != "undefined" && endDate && startDate) {
+		if (endDate && startDate && typeof [startDate, endDate]! != "undefined") {
 			if (startDate > endDate) setValidate(false);
 			if (endDate > startDate) setValidate(true);
 		}
 	}, [startDate, endDate]);
 
+	if (!intern) return <span className="loadingScreen">Loading...</span>;
 	return (
 		<div>
 			<NavLink className="nav" to="/">
@@ -62,10 +88,10 @@ export const AddIntern: React.FC<any> = () => {
 						e.preventDefault();
 						return;
 					}
-					addIntern();
+					editIntern();
 				}}
 			>
-				<h2>Add Intern</h2>
+				<h2>Edit Intern</h2>
 				<div className="nameInput">
 					<label>Full Name *</label>
 					<input
@@ -91,11 +117,8 @@ export const AddIntern: React.FC<any> = () => {
 							})
 						}
 					/>
-					{email?.value && !email?.isValid && (
+					{!email?.isValid && (
 						<span className="error">Email you typed is not correct!</span>
-					)}
-					{!email?.value && (
-						<span className="error">This field is required!</span>
 					)}
 				</div>
 				<div className="dates">
@@ -110,9 +133,6 @@ export const AddIntern: React.FC<any> = () => {
 								setStartDate(e.target.value);
 							}}
 						/>
-						{!startDate && (
-							<span className="error">This field is required!</span>
-						)}
 					</div>
 					<div className="end">
 						<label>Work end *</label>
@@ -130,12 +150,7 @@ export const AddIntern: React.FC<any> = () => {
 						)}
 					</div>
 				</div>
-				<input
-					className="subButton"
-					type="submit"
-					value="Submit"
-					onChange={(e) => e.preventDefault()}
-				/>
+				<input className="subButton" type="submit" value="Submit" />
 			</form>
 		</div>
 	);

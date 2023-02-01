@@ -9,7 +9,7 @@ interface Intern {
 	email: string;
 }
 
-export const InternList: React.FC = () => {
+export const List: React.FC = () => {
 	const [interns, setInterns] = useState<Intern[]>([]);
 
 	useEffect(() => {
